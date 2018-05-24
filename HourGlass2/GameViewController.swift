@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
                 sceneNode.entities = scene.entities
                 sceneNode.graphs = scene.graphs
                 
+//                sceneNode.physicsWorld.gravity
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
                 
@@ -37,7 +38,9 @@ class GameViewController: UIViewController {
                     
                     view.showsFPS = true
                     view.showsNodeCount = true
+                    view.showsPhysics = true
                 }
+                
             }
         }
     }
