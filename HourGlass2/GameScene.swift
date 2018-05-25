@@ -21,6 +21,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func sceneDidLoad(){
+        
+//        let hourGlassTexture = SKTexture(imageNamed: "hourglass-sprite")
+//
+//        let hourGlass = SKSpriteNode(texture: hourGlassTexture)
+//
+//        hourGlass.physicsBody = SKPhysicsBody(texture: hourGlassTexture, size: CGSize(width: hourGlass.size.width, height: hourGlass.size.height))
+////        texturedSpaceShip.physicsBody = SKPhysicsBody(texture: spaceShipTexture,
+////                                                      size: CGSize(width: circularSpaceShip.size.width,
+////                                                                   height: circularSpaceShip.size.height))
+
+//        self.addChild(hourGlass)
 
 //        self.lastUpdateTime = 0
 //
@@ -30,25 +41,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            label.alpha = 0.0
 //            label.run(SKAction.fadeIn(withDuration: 2.0))
 //        }
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: -1)
+        //self.physicsWorld.gravity = CGVector(dx: 0, dy: -1)
         
-        self.hourGlass = self.childNode(withName: "//hourGlass") as? SKShapeNode
+        //self.hourGlass = self.childNode(withName: "//hourGlass") as? SKShapeNode
         
 //        self.hourGlass?.physicsBody = SKPhysicsBody(circleOfRadius: max(hourGlass?. / 2,
 //                                                                        hourGlass.size.height / 2))
         //self.hourGlass?.physicsBody = SKPhysicsBody(
         
-        self.hourGlass?.isHidden = true
+        //self.hourGlass?.isHidden = true
         
-        let triangle = SKShapeNode()
-        let path = CGMutablePath()
-        path.move(to: CGPoint(x: 0.0, y: 0.0))
-        path.addLine(to: CGPoint(x: 50.0, y: 50.0))
-        path.addLine(to: CGPoint(x: -50.0, y: 50.0))
-        path.addLine(to: CGPoint(x: 0.0, y: 0.0))
-        triangle.path = path
-        triangle.lineWidth = 1.0
-        triangle.strokeColor = UIColor.green
+//        let triangle = SKShapeNode()
+//        let path = CGMutablePath()
+//        path.move(to: CGPoint(x: 0.0, y: 0.0))
+//        path.addLine(to: CGPoint(x: 50.0, y: 50.0))
+//        path.addLine(to: CGPoint(x: -50.0, y: 50.0))
+//        path.addLine(to: CGPoint(x: 0.0, y: 0.0))
+//        triangle.path = path
+//        triangle.lineWidth = 1.0
+//        triangle.strokeColor = UIColor.green
+        
+//        var testBlock = SKShapeNode.init(rectOf: CGSize.init(width: 50, height: 50), cornerRadius: 50 * 0.3)
+//
+//        testBlock.lineWidth = 2.0
+//
+//        testBlock.position = CGPoint(x: 100, y: 100)
+//
+//        testBlock.alpha = 0
+//
+//        self.addChild(testBlock)
+//
+//        testBlock.run(SKAction.fadeIn(withDuration: 5.0))
+        
+        
+        //var hourGlass = SKShapeNode()
+        var path = CGMutablePath()
+        path.move(to: CGPoint(x: -10.0, y: 10.0))
+        path.addLine(to: CGPoint(x: -50.0, y: 100.0))
+        path.addLine(to: CGPoint(x: 50.0, y: 100.0))
+        path.addLine(to: CGPoint(x: 10.0, y: 10.0))
+        path.addLine(to: CGPoint(x: 10.0, y: -10.0))
+        path.addLine(to: CGPoint(x: 50.0, y: -100.0))
+        path.addLine(to: CGPoint(x: -50.0, y: -100.0))
+        path.addLine(to: CGPoint(x: -10.0, y: -10.0))
+        path.addLine(to: CGPoint(x: -10.0, y: 10.0))
+        path.closeSubpath()
+
+        hourGlass = SKShapeNode.init(path: path, centered: true)
+
+
+        hourGlass?.lineWidth = 2.0
+        hourGlass?.strokeColor = UIColor.red
+        hourGlass?.xScale = 4.0
+        hourGlass?.yScale = 4.0
+
+        hourGlass?.alpha = 0
+
+        self.addChild(hourGlass!)
+
+        hourGlass?.run(SKAction.fadeIn(withDuration: 5.0))
+
+        //hourGlass.run(SKAction.rotate(byAngle: 90.0, duration: 3.0))
+        
+        //self.hourGlass?.run(SKAction.fadeIn(withDuration: 3))
         
 //        let physicsBodyPath = CGMutablePath()
 //        physicsBodyPath.move(to: CGPoint(x: 0.0, y: -100.0))
@@ -56,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        physicsBodyPath.addLine(to: CGPoint(x: -100.0, y: 100.0))
 //        physicsBodyPath.addLine(to: CGPoint(x: 0.0, y: -100.0))
         
-        triangle.physicsBody = SKPhysicsBody(polygonFrom: path)
+        //triangle.physicsBody = SKPhysicsBody(polygonFrom: path)
 //        triangle.physicsBody = SKPhysicsBody(
         //triangle.physicsBody = SKPhysicsBody(circleOfRadius: 300)
         
@@ -70,10 +125,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        triangle.physicsBody = SKPhysicsBody(polygonFrom: physicsBodyPath)
         
         
-        triangle.physicsBody?.affectedByGravity = true
+        //triangle.physicsBody?.affectedByGravity = true
         
         
-        self.addChild(triangle)
+        //self.addChild(triangle)
           
 //
 //        // Create shape node to use during mouse interaction
@@ -122,10 +177,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
 //        }
         
-        if let hourGlass = self.hourGlass {
-            hourGlass.run(SKAction.init(named: "Spin")!)
+//        if let hourGlass = self.hourGlass {
+//            hourGlass.run(SKAction.init(named: "Spin")!)
+//        }
+        
+        //hourGlass?.run(SKAction.init(named: "Spin")!)
+        
+        //hourGlass?.run(SKAction.rotate(byAngle: 10.0, duration: 3.0))
+        
+        if let hourGlass = self.hourGlass{
+            hourGlass.run(SKAction.rotate(byAngle: CGFloat(Float.pi), duration: 1.0))
         }
-//
+        
+        
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
