@@ -11,6 +11,9 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    let hourGlassCategory: UInt32 = 0x1 << 0
+    let sandCategory: UInt32 = 0x1 << 1
+    
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     
@@ -18,9 +21,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    private var label : SKLabelNode?
 //    private var spinnyNode : SKShapeNode?
       private var hourGlass : SKShapeNode?
+      private var sand : SKShapeNode?
     
+    override func didMove(to view: SKView) {
+        self.physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("contacted")
+        
+    }
     
     override func sceneDidLoad(){
+        
         
 //        let hourGlassTexture = SKTexture(imageNamed: "hourglass-sprite")
 //
@@ -73,33 +87,75 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //
 //        testBlock.run(SKAction.fadeIn(withDuration: 5.0))
         
+        let sandRadius = CGFloat(10.0)
+        
+        sand = SKShapeNode.init(circleOfRadius: sandRadius)
+        
+        sand?.position = CGPoint(x: 30, y: 100)
+        sand?.lineWidth = 1.0
+        sand?.strokeColor = UIColor.purple
+        
+        sand?.physicsBody = SKPhysicsBody(circleOfRadius: sandRadius)
+        
+        self.addChild(sand!)
+        
+        //sand?.physicsBody?.isDynamic = true
+        
+        //sand?.physicsBody?.usesPreciseCollisionDetection = true
+        //sand?.physicsBody?.categoryBitMask = sandCategory
+        sand?.physicsBody?.collisionBitMask = sandCategory
+        
         
         //var hourGlass = SKShapeNode()
-        var path = CGMutablePath()
-        path.move(to: CGPoint(x: -10.0, y: 10.0))
-        path.addLine(to: CGPoint(x: -50.0, y: 100.0))
-        path.addLine(to: CGPoint(x: 50.0, y: 100.0))
-        path.addLine(to: CGPoint(x: 10.0, y: 10.0))
-        path.addLine(to: CGPoint(x: 10.0, y: -10.0))
-        path.addLine(to: CGPoint(x: 50.0, y: -100.0))
-        path.addLine(to: CGPoint(x: -50.0, y: -100.0))
-        path.addLine(to: CGPoint(x: -10.0, y: -10.0))
-        path.addLine(to: CGPoint(x: -10.0, y: 10.0))
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: -15.0, y: 30.0))
+        path.addLine(to: CGPoint(x: -150.0, y: 300.0))
+        path.addLine(to: CGPoint(x: 150.0, y: 300.0))
+        path.addLine(to: CGPoint(x: 15.0, y: 30.0))
+        path.addLine(to: CGPoint(x: 15.0, y: -30.0))
+        path.addLine(to: CGPoint(x: 150.0, y: -300.0))
+        path.addLine(to: CGPoint(x: -150.0, y: -300.0))
+        path.addLine(to: CGPoint(x: -15.0, y: -30.0))
+        path.addLine(to: CGPoint(x: -15.0, y: 30.0))
         path.closeSubpath()
+        
+        let physicsBodypath = CGMutablePath()
+        physicsBodypath.move(to: CGPoint(x: -15.0, y: 30.0))
+        physicsBodypath.addLine(to: CGPoint(x: -150.0, y: 300.0))
+        physicsBodypath.addLine(to: CGPoint(x: 150.0, y: 300.0))
+        physicsBodypath.addLine(to: CGPoint(x: 15.0, y: 30.0))
+        physicsBodypath.addLine(to: CGPoint(x: 15.0, y: -30.0))
+        physicsBodypath.addLine(to: CGPoint(x: 150.0, y: -300.0))
+        physicsBodypath.addLine(to: CGPoint(x: -150.0, y: -300.0))
+        physicsBodypath.addLine(to: CGPoint(x: -15.0, y: -30.0))
+        physicsBodypath.addLine(to: CGPoint(x: -15.0, y: 30.0))
+        physicsBodypath.addLine(to: CGPoint(x: -150.0, y: 300.0))
 
-        hourGlass = SKShapeNode.init(path: path, centered: true)
+        physicsBodypath.closeSubpath()
 
+        hourGlass = SKShapeNode.init(path: path)
 
+        hourGlass?.physicsBody?.isDynamic = false
+        hourGlass?.physicsBody?.usesPreciseCollisionDetection = true
+        hourGlass?.physicsBody?.categoryBitMask = sandCategory
+        hourGlass?.physicsBody?.contactTestBitMask = hourGlassCategory | sandCategory
+        
         hourGlass?.lineWidth = 2.0
         hourGlass?.strokeColor = UIColor.red
-        hourGlass?.xScale = 4.0
-        hourGlass?.yScale = 4.0
+        //hourGlass?.xScale = 4.0
+        //hourGlass?.yScale = 4.0
 
         hourGlass?.alpha = 0
 
         self.addChild(hourGlass!)
 
-        hourGlass?.run(SKAction.fadeIn(withDuration: 5.0))
+        //hourGlass?.run(SKAction.fadeIn(withDuration: 1.5))
+        
+        //hourGlass?.physicsBody = SKPhysicsBody(polygonFrom: path)
+        hourGlass?.physicsBody = SKPhysicsBody(edgeChainFrom: physicsBodypath)
+        
+        hourGlass?.physicsBody?.affectedByGravity = false
+        
 
         //hourGlass.run(SKAction.rotate(byAngle: 90.0, duration: 3.0))
         
@@ -186,7 +242,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //hourGlass?.run(SKAction.rotate(byAngle: 10.0, duration: 3.0))
         
         if let hourGlass = self.hourGlass{
-            hourGlass.run(SKAction.rotate(byAngle: CGFloat(Float.pi), duration: 1.0))
+            hourGlass.run(SKAction.rotate(byAngle: CGFloat(Float.pi), duration: 3.5))
         }
         
         
