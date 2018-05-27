@@ -17,11 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     
-//    private var lastUpdateTime : TimeInterval = 0
-//    private var label : SKLabelNode?
-//    private var spinnyNode : SKShapeNode?
-      private var hourGlass : SKShapeNode?
-      private var sand : SKShapeNode?
+    private var hourGlass : SKShapeNode?
+    private var sand : SKShapeNode?
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
@@ -35,78 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func sceneDidLoad(){
         
-        
-//        let hourGlassTexture = SKTexture(imageNamed: "hourglass-sprite")
-//
-//        let hourGlass = SKSpriteNode(texture: hourGlassTexture)
-//
-//        hourGlass.physicsBody = SKPhysicsBody(texture: hourGlassTexture, size: CGSize(width: hourGlass.size.width, height: hourGlass.size.height))
-////        texturedSpaceShip.physicsBody = SKPhysicsBody(texture: spaceShipTexture,
-////                                                      size: CGSize(width: circularSpaceShip.size.width,
-////                                                                   height: circularSpaceShip.size.height))
-
-//        self.addChild(hourGlass)
-
-//        self.lastUpdateTime = 0
-//
-//        // Get label node from scene and store it for use later
-//        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-//        if let label = self.label {
-//            label.alpha = 0.0
-//            label.run(SKAction.fadeIn(withDuration: 2.0))
-//        }
-        //self.physicsWorld.gravity = CGVector(dx: 0, dy: -1)
-        
-        //self.hourGlass = self.childNode(withName: "//hourGlass") as? SKShapeNode
-        
-//        self.hourGlass?.physicsBody = SKPhysicsBody(circleOfRadius: max(hourGlass?. / 2,
-//                                                                        hourGlass.size.height / 2))
-        //self.hourGlass?.physicsBody = SKPhysicsBody(
-        
-        //self.hourGlass?.isHidden = true
-        
-//        let triangle = SKShapeNode()
-//        let path = CGMutablePath()
-//        path.move(to: CGPoint(x: 0.0, y: 0.0))
-//        path.addLine(to: CGPoint(x: 50.0, y: 50.0))
-//        path.addLine(to: CGPoint(x: -50.0, y: 50.0))
-//        path.addLine(to: CGPoint(x: 0.0, y: 0.0))
-//        triangle.path = path
-//        triangle.lineWidth = 1.0
-//        triangle.strokeColor = UIColor.green
-        
-//        var testBlock = SKShapeNode.init(rectOf: CGSize.init(width: 50, height: 50), cornerRadius: 50 * 0.3)
-//
-//        testBlock.lineWidth = 2.0
-//
-//        testBlock.position = CGPoint(x: 100, y: 100)
-//
-//        testBlock.alpha = 0
-//
-//        self.addChild(testBlock)
-//
-//        testBlock.run(SKAction.fadeIn(withDuration: 5.0))
-        
-        let sandRadius = CGFloat(10.0)
-        
-        sand = SKShapeNode.init(circleOfRadius: sandRadius)
-        
-        sand?.position = CGPoint(x: 30, y: 100)
-        sand?.lineWidth = 1.0
-        sand?.strokeColor = UIColor.purple
-        
-        sand?.physicsBody = SKPhysicsBody(circleOfRadius: sandRadius)
-        
-        self.addChild(sand!)
-        
-        //sand?.physicsBody?.isDynamic = true
-        
-        //sand?.physicsBody?.usesPreciseCollisionDetection = true
-        //sand?.physicsBody?.categoryBitMask = sandCategory
-        sand?.physicsBody?.collisionBitMask = sandCategory
-        
-        
-        //var hourGlass = SKShapeNode()
+        // set paths for hourglass shape and physics body
         let path = CGMutablePath()
         path.move(to: CGPoint(x: -15.0, y: 30.0))
         path.addLine(to: CGPoint(x: -150.0, y: 300.0))
@@ -120,87 +46,141 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         path.closeSubpath()
         
         let physicsBodypath = CGMutablePath()
-        physicsBodypath.move(to: CGPoint(x: -15.0, y: 30.0))
+        physicsBodypath.move(to: CGPoint(x: -18.0, y: 30.0))
         physicsBodypath.addLine(to: CGPoint(x: -150.0, y: 300.0))
         physicsBodypath.addLine(to: CGPoint(x: 150.0, y: 300.0))
-        physicsBodypath.addLine(to: CGPoint(x: 15.0, y: 30.0))
-        physicsBodypath.addLine(to: CGPoint(x: 15.0, y: -30.0))
+        physicsBodypath.addLine(to: CGPoint(x: 18.0, y: 30.0))
+        physicsBodypath.addLine(to: CGPoint(x: 18.0, y: -30.0))
         physicsBodypath.addLine(to: CGPoint(x: 150.0, y: -300.0))
         physicsBodypath.addLine(to: CGPoint(x: -150.0, y: -300.0))
-        physicsBodypath.addLine(to: CGPoint(x: -15.0, y: -30.0))
-        physicsBodypath.addLine(to: CGPoint(x: -15.0, y: 30.0))
+        physicsBodypath.addLine(to: CGPoint(x: -18.0, y: -30.0))
+        physicsBodypath.addLine(to: CGPoint(x: -18.0, y: 30.0))
         physicsBodypath.addLine(to: CGPoint(x: -150.0, y: 300.0))
-
+        physicsBodypath.addLine(to: CGPoint(x: 150.0, y: 300.0))
+        physicsBodypath.addLine(to: CGPoint(x: 18.0, y: 30.0))
+        physicsBodypath.addLine(to: CGPoint(x: 18.0, y: -30.0))
+        physicsBodypath.addLine(to: CGPoint(x: 150.0, y: -300.0))
+        physicsBodypath.addLine(to: CGPoint(x: -150.0, y: -300.0))
+        physicsBodypath.addLine(to: CGPoint(x: -18.0, y: -30.0))
         physicsBodypath.closeSubpath()
 
-        hourGlass = SKShapeNode.init(path: path)
+        ///////////////////// end setting paths ///////////////////////////
 
-        hourGlass?.physicsBody?.isDynamic = false
-        hourGlass?.physicsBody?.usesPreciseCollisionDetection = true
-        hourGlass?.physicsBody?.categoryBitMask = sandCategory
-        hourGlass?.physicsBody?.contactTestBitMask = hourGlassCategory | sandCategory
+        // set hourglass shape
+        hourGlass = SKShapeNode.init(path: path)
         
-        hourGlass?.lineWidth = 2.0
+        hourGlass?.lineWidth = 1.0
         hourGlass?.strokeColor = UIColor.red
         //hourGlass?.xScale = 4.0
         //hourGlass?.yScale = 4.0
-
         hourGlass?.alpha = 0
-
-        self.addChild(hourGlass!)
-
-        //hourGlass?.run(SKAction.fadeIn(withDuration: 1.5))
         
-        //hourGlass?.physicsBody = SKPhysicsBody(polygonFrom: path)
+        
+        // set sand shape
+        let sandRadius = CGFloat(10.0)
+        let sandPosition = CGFloat(-120.0)
+        sand = SKShapeNode.init(circleOfRadius: sandRadius)
+        sand?.position = CGPoint(x: sandPosition, y: 250)
+        sand?.lineWidth = 1.0
+        sand?.strokeColor = UIColor.purple
+
+//        //spawn all the sand
+//        for i in 1...10 {
+//
+//            sandPosition = sandPosition + 22
+//            sand = SKShapeNode.init(circleOfRadius: sandRadius)
+//            sand?.position = CGPoint(x: sandPosition, y: 250)
+//            sand?.lineWidth = 1.0
+//            sand?.strokeColor = UIColor.purple
+//
+//            sand?.physicsBody = SKPhysicsBody(circleOfRadius: sandRadius)
+//
+//            //            sand?.physicsBody?.affectedByGravity = false
+//
+//            self.addChild(sand!)
+//
+//        }
+        
+//        var sandPositionRow2 = CGFloat(-108.0)
+//
+//        for i in 1...8 {
+//
+//            sandPositionRow2 = sandPositionRow2 + 22
+//            sand = SKShapeNode.init(circleOfRadius: sandRadius)
+//            sand?.position = CGPoint(x: sandPositionRow2, y: 228)
+//            sand?.lineWidth = 1.0
+//            sand?.strokeColor = UIColor.purple
+//
+//            sand?.physicsBody = SKPhysicsBody(circleOfRadius: sandRadius)
+//
+//            //            sand?.physicsBody?.affectedByGravity = false
+//
+//            self.addChild(sand!)
+//
+//        }
+//
+//        var sandPositionRow3 = CGFloat(-80.0)
+//
+//        for i in 1...6 {
+//
+//            sandPositionRow3 = sandPositionRow3 + 22
+//            sand = SKShapeNode.init(circleOfRadius: sandRadius)
+//            sand?.position = CGPoint(x: sandPositionRow3, y: 200)
+//            sand?.lineWidth = 1.0
+//            sand?.strokeColor = UIColor.purple
+//
+//            sand?.physicsBody = SKPhysicsBody(circleOfRadius: sandRadius)
+//
+//            //            sand?.physicsBody?.affectedByGravity = false
+//
+//            self.addChild(sand!)
+//
+//        }
+//
+//        var sandPositionRow4 = CGFloat(-58.0)
+//
+//        for i in 1...4 {
+//
+//            sandPositionRow4 = sandPositionRow4 + 22
+//            sand = SKShapeNode.init(circleOfRadius: sandRadius)
+//            sand?.position = CGPoint(x: sandPositionRow4, y: 178)
+//            sand?.lineWidth = 1.0
+//            sand?.strokeColor = UIColor.purple
+//
+//            sand?.physicsBody = SKPhysicsBody(circleOfRadius: sandRadius)
+//
+//            //            sand?.physicsBody?.affectedByGravity = false
+//            self.addChild(sand!)
+//
+//        }
+    ///////////////////////// end sand spawning ///////////////////////////////
+        
+        
+        // set hourglass physics body
         hourGlass?.physicsBody = SKPhysicsBody(edgeChainFrom: physicsBodypath)
-        
+        //hourGlass?.physicsBody = SKPhysicsBody(polygonFrom: path)
+        hourGlass?.physicsBody?.affectedByGravity = false
+        hourGlass?.physicsBody?.isDynamic = false
+        hourGlass?.physicsBody?.categoryBitMask = hourGlassCategory
+        hourGlass?.physicsBody?.collisionBitMask = sandCategory
+        hourGlass?.physicsBody = SKPhysicsBody(edgeChainFrom: physicsBodypath)
         hourGlass?.physicsBody?.affectedByGravity = false
         
 
-        //hourGlass.run(SKAction.rotate(byAngle: 90.0, duration: 3.0))
-        
-        //self.hourGlass?.run(SKAction.fadeIn(withDuration: 3))
-        
-//        let physicsBodyPath = CGMutablePath()
-//        physicsBodyPath.move(to: CGPoint(x: 0.0, y: -100.0))
-//        physicsBodyPath.addLine(to: CGPoint(x: 100.0, y: 100.0))
-//        physicsBodyPath.addLine(to: CGPoint(x: -100.0, y: 100.0))
-//        physicsBodyPath.addLine(to: CGPoint(x: 0.0, y: -100.0))
-        
-        //triangle.physicsBody = SKPhysicsBody(polygonFrom: path)
-//        triangle.physicsBody = SKPhysicsBody(
-        //triangle.physicsBody = SKPhysicsBody(circleOfRadius: 300)
-        
-//        let physicsBodyPath = CGMutablePath()
-//        physicsBodyPath.addLines(between: [CGPoint(x: -5, y: 37), CGPoint(x: 5, y: 37), CGPoint(x: 10, y: 20),
-//                                CGPoint(x: 56, y: -5), CGPoint(x: 37, y: -35), CGPoint(x: 15, y: -30),
-//                                CGPoint(x: 12, y: -37), CGPoint(x: -12, y: -37), CGPoint(x: -15, y: -30),
-//                                CGPoint(x: -37, y: -35), CGPoint(x: -56, y: -5), CGPoint(x: -10, y: 20),
-//                                CGPoint(x: -5, y: 37)])
-//        physicsBodyPath.closeSubpath()
-//        triangle.physicsBody = SKPhysicsBody(polygonFrom: physicsBodyPath)
+        // set sand physics body
+        sand?.physicsBody?.collisionBitMask = hourGlassCategory | sandCategory
+        sand?.physicsBody?.categoryBitMask = sandCategory
+        sand?.physicsBody?.contactTestBitMask = hourGlassCategory | sandCategory
+        sand?.physicsBody?.usesPreciseCollisionDetection = true
         
         
-        //triangle.physicsBody?.affectedByGravity = true
+        // add hourglass and sand nodes to scene
+        self.addChild(hourGlass!)
+        self.addChild(sand!)
+
         
-        
-        //self.addChild(triangle)
-          
-//
-//        // Create shape node to use during mouse interaction
-//        let w = (self.size.width + self.size.height) * 0.05
-        
-        
-//        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-//
-//        if let spinnyNode = self.spinnyNode {
-//            spinnyNode.lineWidth = 2.5
-//
-//            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-//            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-//                                              SKAction.fadeOut(withDuration: 0.5),
-//                                              SKAction.removeFromParent()]))
-//        }
+        // fade in hourglass
+        hourGlass?.run(SKAction.fadeIn(withDuration: 1.5))
     }
     
     
